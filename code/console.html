@@ -288,7 +288,7 @@ print(a + b)"></textarea>
         </div>
     </div>
 
-    <script>
+  <script>
         const codeEditor = document.getElementById('codeEditor');
         const codeInput = document.getElementById('codeInput');
         const output = document.getElementById('output');
@@ -297,19 +297,9 @@ print(a + b)"></textarea>
         const clearBtn = document.getElementById('clearBtn');
         const themeToggle = document.getElementById('themeToggle');
 
-        // Override console.log
-        const originalLog = console.log;
-        const originalError = console.error;
-
         let outputLines = [];
 
-        // Make print() work like console.log()
-        window.print = function(...args) {
-            console.log(...args);
-        };
-
         function addOutput(message, type = 'log') {
-            const timestamp = new Date().toLocaleTimeString();
             let className = 'output-log';
             let prefix = '> ';
             
@@ -327,25 +317,41 @@ print(a + b)"></textarea>
             output.scrollTop = output.scrollHeight;
         }
 
-        console.log = function(...args) {
-            originalLog(...args);
-            addOutput(args.map(arg => {
-                if (typeof arg === 'object') {
-                    return JSON.stringify(arg, null, 2);
-                }
-                return String(arg);
-            }).join(' '), 'log');
-        };
-
-        console.error = function(...args) {
-            originalError(...args);
-            addOutput(args.join(' '), 'error');
+        // Create console object for eval
+        const consoleObj = {
+            log: function(...args) {
+                addOutput(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '), 'log');
+            },
+            error: function(...args) {
+                addOutput(args.join(' '), 'error');
+            }
         };
 
         function runCode(code) {
             try {
                 addOutput(`Executing: ${code.trim()}`, 'info');
-                const result = eval(code);
+                
+                // Make console available in eval
+                const result = eval(`
+                    (function() {
+                        const console = {
+                            log: function(...args) {
+                                consoleObj.log(...args);
+                            },
+                            error: function(...args) {
+                                consoleObj.error(...args);
+                            }
+                        };
+                        const print = console.log;
+                        return (${code});
+                    })()
+                `);
+                
                 if (result !== undefined) {
                     addOutput(`← ${typeof result === 'object' ? JSON.stringify(result) : result}`, 'log');
                 }
