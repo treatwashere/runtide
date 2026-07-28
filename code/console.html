@@ -360,7 +360,7 @@ print(a + b)"></textarea>
             }
         };
 
-        function runCode(code) {
+  function runCode(code) {
     try {
         addOutput(`Executing: ${code.trim()}`, 'info');
         
@@ -382,18 +382,7 @@ print(a + b)"></textarea>
     } catch (error) {
         addOutput(`Error: ${error.message}`, 'error');
     }
-                        const print = console.log;
-                        return (${code});
-                    })()
-                `);
-                
-                if (result !== undefined) {
-                    addOutput(`← ${typeof result === 'object' ? JSON.stringify(result) : result}`, 'log');
-                }
-            } catch (error) {
-                addOutput(`Error: ${error.message}`, 'error');
-            }
-        }
+}
 
         // Run button for multi-line editor
         runEditorBtn.addEventListener('click', () => {
