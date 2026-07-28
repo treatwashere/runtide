@@ -360,15 +360,21 @@ print(a + b)"></textarea>
             }
         };
 
+let codeHistory = '';
+
 function runCode(code) {
     try {
         addOutput(`Executing: ${code.trim()}`, 'info');
+        codeHistory += code + ';\n';
         
-        // Use Function constructor to pass console and print into scope
-        const func = new Function('console', 'print', code);
-        func(consoleObj, consoleObj.log);
+        eval(`
+            const console = consoleObj;
+            const print = consoleObj.log;
+            ${codeHistory}
+        `);
     } catch (error) {
         addOutput(`Error: ${error.message}`, 'error');
+        codeHistory = codeHistory.substring(0, codeHistory.length - code.length - 2);
     }
 }
 
@@ -418,7 +424,7 @@ function runCode(code) {
             themeToggle.textContent = '☀️';
         }
 
-        addOutput('Runtide Console Ready! 🌊', 'info');
+        addOutput('console starting...', 'console ready!', 'info');
     </script>
 </body>
 </html>
