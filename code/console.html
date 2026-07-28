@@ -360,25 +360,13 @@ print(a + b)"></textarea>
             }
         };
 
-  function runCode(code) {
+function runCode(code) {
     try {
         addOutput(`Executing: ${code.trim()}`, 'info');
         
-        // Make console available in eval
-        eval(`
-            (function() {
-                const console = {
-                    log: function(...args) {
-                        consoleObj.log(...args);
-                    },
-                    error: function(...args) {
-                        consoleObj.error(...args);
-                    }
-                };
-                const print = console.log;
-                ${code}
-            })()
-        `);
+        // Use Function constructor to pass console and print into scope
+        const func = new Function('console', 'print', code);
+        func(consoleObj, consoleObj.log);
     } catch (error) {
         addOutput(`Error: ${error.message}`, 'error');
     }
