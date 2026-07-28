@@ -16,18 +16,36 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
             line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            color: #333;
         }
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
+            padding: 15px 40px;
             background: rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .navbar {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
         }
 
         .logo {
@@ -36,12 +54,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
@@ -49,11 +69,39 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        body.light-mode .nav-links a {
+            color: #333;
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
 
         .hero {
@@ -136,6 +184,11 @@
             padding: 80px 40px;
             background: #f8f9fa;
             color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .features {
+            background: #e8eef5;
         }
 
         .section-title {
@@ -143,6 +196,10 @@
             font-size: 2.5rem;
             margin-bottom: 60px;
             color: #333;
+        }
+
+        body.light-mode .section-title {
+            color: #667eea;
         }
 
         .features-grid {
@@ -160,6 +217,11 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             text-align: center;
+            color: #333;
+        }
+
+        body.light-mode .feature-card {
+            background: rgba(255, 255, 255, 0.7);
         }
 
         .feature-card:hover {
@@ -187,10 +249,19 @@
         .testimonials {
             padding: 80px 40px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .testimonials {
+            background: linear-gradient(135deg, #e8eef5 0%, #d8dfe8 100%);
         }
 
         .testimonials .section-title {
             color: white;
+        }
+
+        body.light-mode .testimonials .section-title {
+            color: #667eea;
         }
 
         .testimonials-grid {
@@ -207,6 +278,12 @@
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .testimonial-card {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .testimonial-text {
@@ -214,6 +291,10 @@
             margin-bottom: 15px;
             font-style: italic;
             color: rgba(255, 255, 255, 0.95);
+        }
+
+        body.light-mode .testimonial-text {
+            color: #333;
         }
 
         .testimonial-author {
@@ -231,6 +312,11 @@
             padding: 80px 40px;
             background: #f8f9fa;
             color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .info {
+            background: #e8eef5;
         }
 
         .info-content {
@@ -268,6 +354,11 @@
             color: white;
             padding: 40px;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .footer {
+            background: #333;
         }
 
         .footer-links {
@@ -290,11 +381,24 @@
 
         @media (max-width: 768px) {
             .navbar {
-                padding: 15px 20px;
+                padding: 12px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-left {
+                gap: 20px;
+                width: 100%;
+                justify-content: space-between;
             }
 
             .nav-links {
-                gap: 15px;
+                gap: 10px;
+                font-size: 0.9rem;
+            }
+
+            .nav-links a {
+                padding: 6px 10px;
             }
 
             .hero h1 {
@@ -322,11 +426,17 @@
 <body>
     <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="logo">🌊 Runtide</div>
-        <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#about">About</a>
-            <a href="/changelog.html">Changelog</a>
+        <div class="nav-left">
+            <div class="logo" onclick="window.location.href='/'">🌊 Runtide</div>
+            <div class="nav-links">
+                <a href="/playground.html">Playground</a>
+                <a href="/html-viewer.html">HTML Viewer</a>
+                <a href="/changelog.html">Changelog</a>
+                <a href="#features">Features</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggle">🌙</button>
         </div>
     </nav>
 
@@ -401,7 +511,7 @@
     </section>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="info">
+    <section class="info">
         <div class="info-content">
             <div>
                 <div class="info-highlight">
@@ -432,5 +542,21 @@
         </div>
         <p>&copy; 2026 Runtide. Built by Kane with ❤️</p>
     </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            themeToggle.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+            localStorage.setItem('runtide_theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+
+        const theme = localStorage.getItem('runtide_theme') || 'dark';
+        if (theme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.textContent = '☀️';
+        }
+    </script>
 </body>
 </html>
