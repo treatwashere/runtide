@@ -15,83 +15,422 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            line-height: 1.6;
         }
 
-        .container {
-            text-align: center;
-            max-width: 600px;
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 40px;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
             font-size: 4rem;
             margin-bottom: 20px;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 1.2rem;
+        .hero p {
+            font-size: 1.3rem;
             margin-bottom: 40px;
-            opacity: 0.9;
+            opacity: 0.95;
+            max-width: 600px;
         }
 
-        .nav-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .cta-buttons {
+            display: flex;
             gap: 20px;
-            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
         }
 
         .btn {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
+            padding: 15px 40px;
             font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
+            border: none;
             border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
         }
 
-        .btn:hover {
+        .btn-primary {
             background: white;
             color: #667eea;
-            transform: translateY(-3px);
         }
 
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* FEATURES SECTION */
+        .features {
+            padding: 80px 40px;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* TESTIMONIALS SECTION */
+        .testimonials {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .testimonials .section-title {
+            color: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .star-rating {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        /* INFO SECTION */
+        .info {
+            padding: 80px 40px;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .info-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .info-text p {
+            margin-bottom: 15px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .info-highlight {
+            background: #667eea;
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* FOOTER */
         .footer {
-            margin-top: 40px;
-            opacity: 0.8;
-            font-size: 0.9rem;
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .info-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">🌊</div>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">🌊 Runtide</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="/changelog.html">Changelog</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-icon">🌊</div>
         <h1>Runtide</h1>
-        <p>Your Code Playground</p>
-
-        <div class="nav-buttons">
-            <a href="/playground.html" class="btn">🎨 Playground</a>
-            <a href="/html-viewer.html" class="btn">📝 HTML Viewer</a>
-            <a href="/console.html" class="btn">💻 Console</a>
+        <p>The Ultimate Code Playground. Write HTML, CSS, and JavaScript. Test, debug, and deploy instantly.</p>
+        <div class="cta-buttons">
+            <a href="/playground.html" class="btn btn-primary">▶ Launch Playground</a>
+            <a href="/console.html" class="btn btn-secondary">💻 Open Console</a>
         </div>
+    </section>
 
-        <div class="footer">
-            <p>Built with ❤️ by Kane</p>
+    <!-- FEATURES SECTION -->
+    <section id="features" class="features">
+        <h2 class="section-title">✨ Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Full Playground</h3>
+                <p>Write HTML, CSS, and JavaScript with live preview. See your code come to life instantly.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>HTML Viewer</h3>
+                <p>Preview HTML-only projects. Perfect for learning and testing markup.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3>JavaScript Console</h3>
+                <p>Execute JavaScript code line by line. Test snippets and see results instantly.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌙</div>
+                <h3>Dark Mode</h3>
+                <p>Easy on the eyes. Toggle dark and light modes across all editors.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Responsive Testing</h3>
+                <p>Test your layouts on desktop, tablet, and mobile views.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3>Auto Save</h3>
+                <p>Your code is automatically saved to your browser. Never lose your work.</p>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials">
+        <h2 class="section-title">💬 What Users Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="star-rating">★★★★★</div>
+                <div class="testimonial-text">"Runtide is my go-to tool for quick prototyping. It's incredibly fast and intuitive!"</div>
+                <div class="testimonial-author">— Developer Alex</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="star-rating">★★★★★</div>
+                <div class="testimonial-text">"The console feature is a game changer. Perfect for learning JavaScript!"</div>
+                <div class="testimonial-author">— Student Morgan</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="star-rating">★★★★★</div>
+                <div class="testimonial-text">"Clean, simple, and powerful. Exactly what I needed for my web development workflow."</div>
+                <div class="testimonial-author">— Designer Jordan</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="info">
+        <div class="info-content">
+            <div>
+                <div class="info-highlight">
+                    <h3>Built with ❤️</h3>
+                    <p>Runtide was created to make coding accessible and fun for everyone. Whether you're learning to code or building your next project, Runtide is here to help.</p>
+                </div>
+            </div>
+            <div class="info-text">
+                <h2>About Runtide</h2>
+                <p>Runtide is a free, browser-based code playground that lets you write and test code instantly.</p>
+                <p><strong>No installation.</strong> No signup required. Just start coding.</p>
+                <p>Perfect for:</p>
+                <p>✅ Learning web development<br>
+                ✅ Testing code snippets<br>
+                ✅ Prototyping ideas<br>
+                ✅ Teaching coding</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/playground.html">Playground</a>
+            <a href="/html-viewer.html">HTML Viewer</a>
+            <a href="/console.html">Console</a>
+            <a href="/changelog.html">Changelog</a>
+        </div>
+        <p>&copy; 2026 Runtide. Built by Kane with ❤️</p>
+    </footer>
 </body>
 </html>
