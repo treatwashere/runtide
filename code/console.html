@@ -361,20 +361,27 @@ print(a + b)"></textarea>
         };
 
         function runCode(code) {
-            try {
-                addOutput(`Executing: ${code.trim()}`, 'info');
-                
-                // Make console available in eval
-                const result = eval(`
-                    (function() {
-                        const console = {
-                            log: function(...args) {
-                                consoleObj.log(...args);
-                            },
-                            error: function(...args) {
-                                consoleObj.error(...args);
-                            }
-                        };
+    try {
+        addOutput(`Executing: ${code.trim()}`, 'info');
+        
+        // Make console available in eval
+        eval(`
+            (function() {
+                const console = {
+                    log: function(...args) {
+                        consoleObj.log(...args);
+                    },
+                    error: function(...args) {
+                        consoleObj.error(...args);
+                    }
+                };
+                const print = console.log;
+                ${code}
+            })()
+        `);
+    } catch (error) {
+        addOutput(`Error: ${error.message}`, 'error');
+    }
                         const print = console.log;
                         return (${code});
                     })()
