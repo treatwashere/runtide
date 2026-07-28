@@ -88,11 +88,18 @@
             font-weight: bold;
             color: #00d9ff;
             border-bottom: 1px solid #3e3e42;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         body.light-mode .label {
             background: #e8e8e8;
             border-bottom-color: #d0d0d0;
+        }
+
+        .label-text {
+            flex: 1;
         }
 
         textarea {
@@ -187,15 +194,19 @@
             border-color: #007acc;
         }
 
-        .run-btn {
+        .btn {
             padding: 8px 20px;
-            background: #007acc;
-            color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.2s;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .run-btn {
+            background: #007acc;
+            color: white;
         }
 
         .run-btn:hover {
@@ -203,14 +214,8 @@
         }
 
         .clear-btn {
-            padding: 8px 20px;
             background: #666;
             color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
         }
 
         .clear-btn:hover {
@@ -259,18 +264,26 @@
 
     <div class="container">
         <div class="code-section">
-            <div class="label">JavaScript Code</div>
+            <div class="label">
+                <span class="label-text">JavaScript Code</span>
+                <button class="btn run-btn" id="runEditorBtn">▶ Run</button>
+            </div>
             <textarea id="codeEditor" placeholder="Write your JavaScript code here...
-Example: a = 5; b = 10; console.log(a + b)"></textarea>
+Example:
+a = 5
+b = 10
+print(a + b)"></textarea>
         </div>
 
         <div class="output-section">
-            <div class="label">Console Output</div>
+            <div class="label">
+                <span class="label-text">Console Output</span>
+            </div>
             <div id="output"></div>
             <div class="input-section">
                 <input type="text" id="codeInput" placeholder="Or type single line code here and press Enter...">
-                <button class="run-btn" id="runBtn">Run</button>
-                <button class="clear-btn" id="clearBtn">Clear</button>
+                <button class="btn run-btn" id="runBtn">▶ Run</button>
+                <button class="btn clear-btn" id="clearBtn">Clear</button>
             </div>
         </div>
     </div>
@@ -279,6 +292,7 @@ Example: a = 5; b = 10; console.log(a + b)"></textarea>
         const codeEditor = document.getElementById('codeEditor');
         const codeInput = document.getElementById('codeInput');
         const output = document.getElementById('output');
+        const runEditorBtn = document.getElementById('runEditorBtn');
         const runBtn = document.getElementById('runBtn');
         const clearBtn = document.getElementById('clearBtn');
         const themeToggle = document.getElementById('themeToggle');
@@ -288,6 +302,11 @@ Example: a = 5; b = 10; console.log(a + b)"></textarea>
         const originalError = console.error;
 
         let outputLines = [];
+
+        // Make print() work like console.log()
+        window.print = function(...args) {
+            console.log(...args);
+        };
 
         function addOutput(message, type = 'log') {
             const timestamp = new Date().toLocaleTimeString();
@@ -335,6 +354,15 @@ Example: a = 5; b = 10; console.log(a + b)"></textarea>
             }
         }
 
+        // Run button for multi-line editor
+        runEditorBtn.addEventListener('click', () => {
+            const code = codeEditor.value.trim();
+            if (code) {
+                runCode(code);
+            }
+        });
+
+        // Run button for single-line input
         runBtn.addEventListener('click', () => {
             const code = codeInput.value.trim();
             if (code) {
