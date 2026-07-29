@@ -193,7 +193,8 @@
         const themeToggle = document.getElementById('themeToggle');
 
         function loadCode() {
-            htmlCode.value = localStorage.getItem('runtide_html_viewer') || '';
+            localStorage.removeItem('runtide_html_viewer');
+            htmlCode.value = '';
             const theme = localStorage.getItem('runtide_theme') || 'dark';
             if (theme === 'light') {
                 document.body.classList.add('light-mode');
