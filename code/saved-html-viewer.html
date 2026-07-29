@@ -202,9 +202,8 @@
         }
 
         function saveCode() {
-            // Nothing saved. Code clears on refresh.
-        }
-
+            localStorage.setItem('runtide_html_viewer', htmlCode.value);
+            }
         function updatePreview() {
             const html = htmlCode.value;
             const combined = `
