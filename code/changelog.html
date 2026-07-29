@@ -310,7 +310,9 @@
             const container = document.getElementById('releases');
 
             try {
-                const response = await fetch('https://api.github.com/repos/treatwashere/runtide/releases');
+                const response = await fetch('https://api.github.com/repos/treatwashere/runtide/releases', {
+                    headers: { 'Accept': 'application/vnd.github.html+json' }
+                });
                 const releases = await response.json();
 
                 if (!releases || releases.length === 0) {
@@ -327,7 +329,7 @@
                         month: 'long',
                         day: 'numeric'
                     });
-                    const body = release.body || 'No description available.';
+                    const body = release.body_html || release.body || 'No description available.';
 
                     html += `
                         <div class="release-item">
