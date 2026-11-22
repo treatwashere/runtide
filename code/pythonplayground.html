@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python Playground — Runtide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0b0d12;--panel:#11141b;--panel2:#151923;--line:#252b37;--muted:#8a93a4;--text:#e8ecf3;--accent:#69e2a6;--accent2:#45c9b5;--red:#ff6b75;--yellow:#ffd166}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Inter,system-ui,sans-serif;min-height:100vh}
+.top{height:66px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#0d1016;position:sticky;top:0;z-index:3}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.3px}.logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#67e6a8,#39bdb0);display:grid;place-items:center;color:#07130d;font-size:17px;font-weight:900}.brand small{font-size:11px;color:var(--muted);font-weight:500;display:block;margin-top:2px}
+.topright{display:flex;gap:10px;align-items:center}.status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}.dot{width:7px;height:7px;border-radius:50%;background:#626c7d}.dot.ready{background:var(--accent);box-shadow:0 0 10px #69e2a677}.btn{border:1px solid var(--line);background:#1a202b;color:var(--text);border-radius:9px;padding:9px 13px;cursor:pointer;font:600 12px Inter;transition:.15s}.btn:hover{border-color:#3b4656;background:#222a37}.btn.run{background:var(--accent);border-color:var(--accent);color:#08130d}.btn.run:hover{filter:brightness(1.06)}.btn:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1440px;margin:0 auto;padding:25px 24px 36px}.heading{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:20px}.heading h1{margin:0;font-size:24px;letter-spacing:-.8px}.heading p{margin:6px 0 0;color:var(--muted);font-size:13px}.badge{border:1px solid #293444;color:#a6b3c5;background:#131923;padding:6px 9px;border-radius:7px;font-size:11px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-bottom:0;border-radius:12px 12px 0 0;background:#131720;padding:10px 12px;gap:10px}.toolsleft,.toolsright{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.select{background:#1a202b;border:1px solid var(--line);color:#dce2ec;border-radius:8px;padding:8px 10px;font-size:12px;max-width:220px}
+.workspace{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(300px,.8fr);border:1px solid var(--line);border-radius:0 0 12px 12px;overflow:hidden;min-height:560px;background:var(--panel)}
+.editorpane{display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--line)}.editorhead{height:40px;background:#10141b;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 14px;justify-content:space-between;color:#b7c1d1;font-size:12px}.file{display:flex;align-items:center;gap:8px}.pyicon{color:#f3c95d;font-weight:800}.editorwrap{display:flex;flex:1;min-height:500px;background:#0e1218;position:relative;overflow:hidden}.numbers{padding:15px 10px 15px 14px;text-align:right;color:#596477;background:#0e1218;font:13px/1.65 "DM Mono",monospace;user-select:none;white-space:pre}.code{resize:none;flex:1;border:0;outline:0;background:transparent;color:#dce6f1;padding:15px 16px;font:13px/1.65 "DM Mono",monospace;white-space:pre;overflow:auto;tab-size:4;min-width:0}.code::selection{background:#274c43}.side{display:flex;flex-direction:column;min-width:0}.consolehead{display:flex;align-items:center;justify-content:space-between;padding:0 14px;height:40px;border-bottom:1px solid var(--line);background:#10141b;font-size:12px}.consolelabel{display:flex;align-items:center;gap:7px;font-weight:600}.consolelabel .terminal{color:var(--accent)}.console{flex:1;min-height:280px;background:#0c1015;padding:14px;overflow:auto;font:12px/1.7 "DM Mono",monospace;white-space:pre-wrap;word-break:break-word;color:#cbd5e2}.console .output{color:#d9e2ec}.console .error{color:var(--red)}.console .info{color:#8491a4}.console .prompt{color:var(--accent)}.console .inputline{display:flex;gap:7px}.console .inputline:before{content:"›";color:var(--accent)}.consolefoot{padding:10px 12px;border-top:1px solid var(--line);background:#10141b;color:var(--muted);font-size:11px;display:flex;justify-content:space-between}
+.examples{border-top:1px solid var(--line);padding:13px;background:#121720}.examples h3{font-size:11px;color:#aeb9ca;margin:0 0 10px;text-transform:uppercase;letter-spacing:.7px}.examplelist{display:flex;flex-wrap:wrap;gap:7px}.example{border:1px solid var(--line);background:#1a202a;color:#c8d2df;padding:7px 9px;border-radius:7px;font-size:11px;cursor:pointer}.example:hover{border-color:#3c7964;color:var(--accent)}
+.footer{margin-top:14px;color:#707b8c;font-size:11px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.footer a{color:#9bb2c9;text-decoration:none}.footer a:hover{color:var(--accent)}
+@media(max-width:850px){.workspace{grid-template-columns:1fr}.editorpane{border-right:0;border-bottom:1px solid var(--line)}.editorwrap{min-height:390px}.side{min-height:330px}.heading{align-items:flex-start;flex-direction:column}.toolbar{align-items:flex-start;flex-direction:column}.toolsright{width:100%}}
+@media(max-width:520px){.top{padding:0 14px}.topright .status{display:none}main{padding:18px 12px}.heading h1{font-size:21px}.btn{padding:8px 10px}.editorwrap{min-height:330px}.code{font-size:12px}.numbers{font-size:12px}}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="brand"><div class="logo">Py</div><div>Runtide<small>Python Playground</small></div></div>
+<div class="topright"><div class="status" id="status"><span class="dot" id="statusDot"></span><span id="statusText">Loading Python runtime…</span></div><button class="btn" id="saveBtn">Save</button><button class="btn run" id="runBtn" disabled>▶ Run code</button></div>
+</header>
+<main>
+<div class="heading"><div><h1>Python Playground</h1><p>Write, run, and experiment with Python — right in your browser.</p></div><div class="badge">Python 3 · Browser runtime</div></div>
+<div class="toolbar"><div class="toolsleft"><select class="select" id="examplesSelect" aria-label="Choose an example"><option value="">Load example…</option><option value="hello">Hello, Python</option><option value="math">Math & variables</option><option value="loop">Loops & lists</option><option value="function">Functions</option><option value="guess">Mini number game</option></select><button class="btn" id="clearBtn">Clear editor</button></div><div class="toolsright"><button class="btn" id="copyBtn">Copy code</button><button class="btn" id="downloadBtn">Download .py</button></div></div>
+<section class="workspace">
+<div class="editorpane"><div class="editorhead"><span class="file"><span class="pyicon">◆</span> main.py</span><span id="lineCount">1 line</span></div><div class="editorwrap"><div class="numbers" id="numbers">1</div><textarea class="code" id="code" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Python code editor" wrap="off">print("Hello from Runtide!")
+print("Start writing Python here.")</textarea></div></div>
+<div class="side"><div class="consolehead"><span class="consolelabel"><span class="terminal">▣</span> Output console</span><button class="btn" id="clearConsoleBtn">Clear</button></div><div class="console" id="console"><span class="info">Runtime is starting. Your code will run locally in this browser tab.</span></div><div class="consolefoot"><span id="execStatus">Ready when runtime loads</span><span>stdout / stderr</span></div><div class="examples"><h3>Quick examples</h3><div class="examplelist"><button class="example" data-example="hello">Hello world</button><button class="example" data-example="math">Calculator</button><button class="example" data-example="loop">Loops</button><button class="example" data-example="function">Functions</button><button class="example" data-example="guess">Guessing game</button></div></div></div>
+</section>
+<div class="footer"><span>Python executes in your browser using Pyodide. No server-side execution.</span><span><a href="https://pyodide.org/" target="_blank" rel="noopener">Powered by Pyodide ↗</a></span></div>
+</main>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+<script>
+const editor=document.getElementById('code'), consoleEl=document.getElementById('console'), runBtn=document.getElementById('runBtn'), statusText=document.getElementById('statusText'), statusDot=document.getElementById('statusDot'), execStatus=document.getElementById('execStatus'), numbers=document.getElementById('numbers'), lineCount=document.getElementById('lineCount');
+let pyodide=null, running=false;
+const examples={
+hello:'print("Hello, world!")\nname = input("What is your name? ")\nprint(f"Nice to meet you, {name}!")',
+math:'# Try changing these values!\na = 17\nb = 5\nprint("Addition:", a + b)\nprint("Multiplication:", a * b)\nprint("Division:", a / b)\nprint("Remainder:", a % b)',
+loop:'fruits = ["apple", "banana", "cherry"]\nfor index, fruit in enumerate(fruits, start=1):\n    print(f"{index}. {fruit}")',
+function:'def greet(name):\n    return f"Welcome to Python, {name}!"\n\nprint(greet("coder"))',
+guess:'import random\nsecret = random.randint(1, 10)\nguess = int(input("Guess a number from 1 to 10: "))\nif guess == secret:\n    print("You got it!")\nelse:\n    print(f"The number was {secret}. Try again!")'
+};
+function syncLines(){const n=editor.value.split('\n').length;numbers.textContent=Array.from({length:n},(_,i)=>i+1).join('\n');lineCount.textContent=n+' line'+(n===1?'':'s')}
+editor.addEventListener('input',syncLines);editor.addEventListener('scroll',()=>numbers.scrollTop=editor.scrollTop);syncLines();
+function printConsole(text,cls='output'){const span=document.createElement('span');span.className=cls;span.textContent=text;consoleEl.appendChild(span);consoleEl.scrollTop=consoleEl.scrollHeight}
+function clearConsole(){consoleEl.textContent=''}
+function setStatus(text,ready=false){statusText.textContent=text;statusDot.className='dot'+(ready?' ready':'')}
+function promptInput(question){return window.prompt(question)??''}
+(async()=>{
+try{setStatus('Downloading Python runtime…');pyodide=await loadPyodide();pyodide.setStdout({batched:s=>printConsole(s)});pyodide.setStderr({batched:s=>printConsole(s,'error')});pyodide.globals.set('browser_input',promptInput);await pyodide.runPythonAsync('import builtins\nbuiltins.input = lambda prompt="": browser_input(str(prompt))');setStatus('Python ready',true);execStatus.textContent='Runtime ready';runBtn.disabled=false;printConsole('Python runtime ready. Press Run code to execute.','info');
+}catch(e){setStatus('Runtime failed to load');execStatus.textContent='Could not load runtime';printConsole('Failed to load Pyodide: '+e,'error')}
+})();
+runBtn.addEventListener('click',async()=>{if(!pyodide||running)return;running=true;runBtn.disabled=true;execStatus.textContent='Running…';clearConsole();printConsole('>>> Running main.py','info');try{await pyodide.runPythonAsync(editor.value);execStatus.textContent='Finished';printConsole('Process finished.','info')}catch(e){execStatus.textContent='Error';printConsole(String(e),'error')}finally{running=false;runBtn.disabled=false}});
+document.getElementById('clearBtn').onclick=()=>{editor.value='';syncLines();editor.focus()};
+document.getElementById('clearConsoleBtn').onclick=clearConsole;
+document.getElementById('saveBtn').onclick=()=>{try{localStorage.setItem('runtide_pythonplayground',editor.value);execStatus.textContent='Saved in this browser';printConsole('Code saved in this browser.','info')}catch(e){execStatus.textContent='Save unavailable'}};
+document.getElementById('copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText(editor.value);execStatus.textContent='Copied to clipboard'}catch(e){execStatus.textContent='Clipboard unavailable'}};
+document.getElementById('downloadBtn').onclick=()=>{const blob=new Blob([editor.value],{type:'text/x-python'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='main.py';a.click();URL.revokeObjectURL(url)};
+function loadExample(key){if(examples[key]){editor.value=examples[key];syncLines();editor.focus();document.getElementById('examplesSelect').value=key;execStatus.textContent='Example loaded'}}
+document.getElementById('examplesSelect').onchange=e=>loadExample(e.target.value);
+document.querySelectorAll('[data-example]').forEach(b=>b.onclick=()=>loadExample(b.dataset.example));
+try{const saved=localStorage.getItem('runtide_pythonplayground');if(saved!==null){editor.value=saved;syncLines();execStatus.textContent='Saved draft restored'}}catch(e){}
+</script>
+</body>
+</html>
