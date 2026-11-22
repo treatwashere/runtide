@@ -444,7 +444,9 @@
         <h1>Runtide</h1>
         <p>The Ultimate Code Playground. Write HTML, CSS, and JavaScript. Test, debug, and deploy instantly.</p>
         <div class="cta-buttons">
-            <a href="/playground.html" class="btn btn-primary">▶ Launch Playground</a>\n            <a href="/pythonplayground.html" class="btn btn-secondary">🐍 Python Playground</a>\n            <a href="/pythonide.html" class="btn btn-secondary">🧰 Python IDE</a>
+            <a href="/playground.html" class="btn btn-primary">▶ Launch Playground</a>
+            <a href="/pythonplayground.html" class="btn btn-secondary">🐍 Python Playground</a>
+            <a href="/pythonide.html" class="btn btn-secondary">🧰 Python IDE</a>
             <a href="/console.html" class="btn btn-secondary">💻 Open Console</a>
             <a href="/html-viewer.html" class="btn btn-secondary">📝 HTML Viewer</a>
             <a href="/changelog.html" class="btn btn-secondary">📋 Changelog</a>
@@ -546,7 +548,9 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-links">
-            <a href="/playground.html">Playground</a>\n            <a href="/pythonplayground.html">Python Playground</a>\n            <a href="/pythonide.html">Python IDE</a>
+            <a href="/playground.html">Playground</a>
+            <a href="/pythonplayground.html">Python Playground</a>
+            <a href="/pythonide.html">Python IDE</a>
             <a href="/html-viewer.html">HTML Viewer</a>
             <a href="/console.html">Console</a>
             <a href="/changelog.html">Changelog</a>
@@ -579,7 +583,9 @@ function addRuntideTools(){
  const ide=document.createElement('a');ide.href='/pythonide.html';ide.textContent='🐍 Python IDE';ide.style.cssText='color:inherit;text-decoration:none;background:#007acc;padding:8px 11px;border-radius:5px;font:600 12px Segoe UI,Arial;display:inline-block';
  const zip=document.createElement('button');zip.textContent='⬇ Download ZIP';zip.style.cssText='background:#252526;color:#fff;border:1px solid #3e3e42;padding:8px 11px;border-radius:5px;cursor:pointer;font:600 12px Segoe UI,Arial';
  area.appendChild(ide);area.appendChild(zip);
- zip.onclick=async()=>{try{const z=new JSZip();const name=location.pathname.split('/').pop()||'index.html';const response=await fetch(location.pathname);if(!response.ok)throw new Error('Could not fetch page source');z.file(name,await response.text());z.file('README.txt','Runtide tool export\\n\\nThis ZIP contains the selected Runtide tool HTML page. Open it in a browser (internet connection may be needed for external libraries).');const blob=await z.generateAsync({type:'blob'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='runtide-'+name.replace('.html','')+'.zip';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200)}catch(e){alert('ZIP download failed: '+e.message)}};
+ zip.onclick=async()=>{try{const z=new JSZip();const name=location.pathname.split('/').pop()||'index.html';const response=await fetch(location.pathname);if(!response.ok)throw new Error('Could not fetch page source');z.file(name,await response.text());z.file('README.txt','Runtide tool export\
+\
+This ZIP contains the selected Runtide tool HTML page. Open it in a browser (internet connection may be needed for external libraries).');const blob=await z.generateAsync({type:'blob'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='runtide-'+name.replace('.html','')+'.zip';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200)}catch(e){alert('ZIP download failed: '+e.message)}};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addRuntideTools);else addRuntideTools();
 })();
