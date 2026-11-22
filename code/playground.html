@@ -226,7 +226,7 @@
             background: #5a5a5a;
         }
     </style>
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/eclipse.min.css"></head>
 <body>
     <div class="header">
         <div class="logo" onclick="window.location.href='/'">🌊 Runtide</div>
@@ -301,18 +301,53 @@
                 <body>
                     ${html}
                     ${js}
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+                <style id="runtide-project-ide-style">
+#rtProjectIDE{position:fixed;z-index:99999;right:14px;bottom:14px;width:min(850px,calc(100vw - 28px));height:min(620px,calc(100vh - 28px));background:#1e1e1e;color:#e0e0e0;border:1px solid #45464a;border-radius:9px;box-shadow:0 14px 48px #0008;display:none;overflow:hidden;font:13px 'Segoe UI',sans-serif}
+#rtProjectIDE.open{display:flex;flex-direction:column}
+#rtProjectTop{display:flex;align-items:center;justify-content:space-between;background:#252526;border-bottom:1px solid #3e3e42;padding:9px 12px;gap:8px}
+#rtProjectTop .rtBtns{display:flex;gap:6px;flex-wrap:wrap}
+#rtProjectIDE button{background:#2d2d30;color:#ddd;border:1px solid #444;border-radius:5px;padding:7px 9px;cursor:pointer;font:600 12px 'Segoe UI',sans-serif}
+#rtProjectIDE button:hover{border-color:#007acc}
+#rtProjectIDE button.rtRun{background:#007acc;color:white;border-color:#007acc}
+#rtProjectBody{display:grid;grid-template-columns:185px minmax(0,1fr);flex:1;min-height:0}
+#rtProjectFiles{background:#252526;border-right:1px solid #3e3e42;display:flex;flex-direction:column;min-width:0}
+#rtProjectFilesHeader{padding:10px;border-bottom:1px solid #3e3e42;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.6px;text-transform:uppercase;font-weight:bold}
+#rtProjectList{overflow:auto;flex:1;padding:5px}
+.rtFileRow{display:flex;gap:5px;align-items:center;padding:7px;border-radius:4px;cursor:pointer;color:#cfcfcf}
+.rtFileRow:hover{background:#333}.rtFileRow.active{background:#094771;color:#fff}.rtFileRow span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rtFileRow .rtDelete{padding:2px 6px;border:0;background:transparent;color:#aaa}
+#rtProjectEditor{display:flex;flex-direction:column;min-width:0;min-height:0}
+#rtProjectTabs{display:flex;overflow:auto;background:#252526;border-bottom:1px solid #3e3e42}
+.rtTab{padding:9px 12px;border-right:1px solid #3e3e42;cursor:pointer;white-space:nowrap;color:#aaa}.rtTab.active{background:#1e1e1e;color:#fff;border-bottom:2px solid #007acc}
+#rtProjectCode{flex:1;min-height:0}.rtProjectCM{height:100%;font:13px/1.6 'Fira Code',monospace}
+#rtProjectStatus{background:#007acc;color:white;padding:5px 10px;font-size:11px;display:flex;justify-content:space-between}
+#rtProjectIDE.light{background:#fff;color:#333}#rtProjectIDE.light #rtProjectTop,#rtProjectIDE.light #rtProjectFiles,#rtProjectIDE.light #rtProjectFilesHeader,#rtProjectIDE.light #rtProjectTabs{background:#f3f3f3;color:#333;border-color:#ccc}#rtProjectIDE.light .rtTab{color:#555}#rtProjectIDE.light .rtTab.active{background:#fff;color:#333}#rtProjectIDE.light .rtFileRow{color:#333}#rtProjectIDE.light .rtFileRow.active{background:#cce8ff}
+@media(max-width:540px){#rtProjectBody{grid-template-columns:125px minmax(0,1fr)}#rtProjectIDE{right:8px;bottom:8px;width:calc(100vw - 16px);height:calc(100vh - 16px)}#rtProjectTop{padding:7px}#rtProjectIDE button{padding:6px;font-size:11px}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<div id="rtProjectIDE"><div id="rtProjectTop"><strong>Project IDE · Runtide</strong><div class="rtBtns"><button id="rtNewFile">＋ File</button><button id="rtZip">ZIP Project</button><button id="rtRun" class="rtRun">▶ Run</button><button id="rtClose">✕</button></div></div><div id="rtProjectBody"><aside id="rtProjectFiles"><div id="rtProjectFilesHeader">Explorer <button id="rtAdd">＋</button></div><div id="rtProjectList"></div></aside><div id="rtProjectEditor"><div id="rtProjectTabs"></div><div id="rtProjectCode"><textarea id="rtProjectTextarea"></textarea></div></div></div><div id="rtProjectStatus"><span id="rtStatus">Ready</span><span id="rtProjectHint">Multi-file · syntax highlighting</span></div></div>
+<button id="rtIDEOpen" style="position:fixed;z-index:99990;right:14px;bottom:14px;background:#007acc;color:white;border:0;border-radius:7px;padding:10px 14px;box-shadow:0 4px 15px #0004;font:600 13px Segoe UI,Arial;cursor:pointer">🧩 Project IDE</button>
 <script>
 (function(){
-function addRuntideTools(){
- const header=document.querySelector('.header,.top,.navbar');if(!header)return;
- const area=header.querySelector('.controls,.topright,.nav-right')||header;
- const ide=document.createElement('a');ide.href='/pythonide.html';ide.textContent='🐍 Python IDE';ide.style.cssText='color:inherit;text-decoration:none;background:#007acc;padding:8px 11px;border-radius:5px;font:600 12px Segoe UI,Arial;display:inline-block';
- const zip=document.createElement('button');zip.textContent='⬇ Download ZIP';zip.style.cssText='background:#252526;color:#fff;border:1px solid #3e3e42;padding:8px 11px;border-radius:5px;cursor:pointer;font:600 12px Segoe UI,Arial';
- area.appendChild(ide);area.appendChild(zip);
- zip.onclick=async()=>{try{const z=new JSZip();const name=location.pathname.split('/').pop()||'index.html';const response=await fetch(location.pathname);if(!response.ok)throw new Error('Could not fetch page source');z.file(name,await response.text());z.file('README.txt','Runtide tool export\\n\\nThis ZIP contains the selected Runtide tool HTML page. Open it in a browser (internet connection may be needed for external libraries).');const blob=await z.generateAsync({type:'blob'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='runtide-'+name.replace('.html','')+'.zip';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200)}catch(e){alert('ZIP download failed: '+e.message)}};
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addRuntideTools);else addRuntideTools();
+const page=location.pathname.split('/').pop()||'tool.html', key='runtide_project_'+page;
+let project={},current='',cm=null;
+const inferMode=name=>{const ext=name.split('.').pop().toLowerCase();return ext==='py'?'python':ext==='css'?'css':ext==='html'?'htmlmixed':ext==='json'?'application/json':ext==='md'?'markdown':ext==='xml'?'xml':'javascript'};
+const defaults=page==='playground.html'?{'index.html':'<!-- Edit this file to build your page. -->','style.css':'/* Styles */','script.js':'// JavaScript'}:page==='console.html'?{'main.js':'// JavaScript console project'}:page==='pythonplayground.html'?{'main.py':'# Python project\nprint("Hello from Runtide!")'}: {'index.html':'<!-- HTML project -->'};
+try{const s=JSON.parse(localStorage.getItem(key)||'null');project=s?.files||defaults;current=s?.current||Object.keys(project)[0]}catch{project=defaults;current=Object.keys(project)[0]}
+if(!project||!Object.keys(project).length)project=defaults;if(!current||!(current in project))current=Object.keys(project)[0];
+const panel=document.getElementById('rtProjectIDE'), list=document.getElementById('rtProjectList'), tabs=document.getElementById('rtProjectTabs'), txt=document.getElementById('rtProjectTextarea'), status=document.getElementById('rtStatus');
+const save=()=>{if(cm)project[current]=cm.getValue();try{localStorage.setItem(key,JSON.stringify({files:project,current}))}catch{}};
+cm=CodeMirror.fromTextArea(txt,{mode:inferMode(current),theme:localStorage.getItem('runtide_theme')==='light'?'eclipse':'material-darker',lineNumbers:true,indentUnit:4,matchBrackets:true,viewportMargin:Infinity});
+function refresh(){list.innerHTML='';tabs.innerHTML='';Object.keys(project).forEach(name=>{const row=document.createElement('div');row.className='rtFileRow'+(name===current?' active':'');row.innerHTML='<span>📄</span><span></span><button class="rtDelete" title="Delete file">×</button>';row.children[1].textContent=name;row.onclick=e=>{if(e.target.closest('.rtDelete'))return;switchTo(name)};row.querySelector('.rtDelete').onclick=e=>{e.stopPropagation();remove(name)};list.appendChild(row);const tab=document.createElement('div');tab.className='rtTab'+(name===current?' active':'');tab.textContent=name;tab.onclick=()=>switchTo(name);tabs.appendChild(tab)})}
+function switchTo(name){save();current=name;cm.setValue(project[name]||'');cm.setOption('mode',inferMode(name));cm.clearHistory();refresh();cm.refresh()}
+function add(){let name=prompt('New file name (e.g. app.js or styles.css):');if(!name)return;name=name.trim();if(!name||name.includes('/')||name.includes('\\')||project[name]){alert('Use a unique file name without folders.');return}save();project[name]='';current=name;cm.setValue('');cm.setOption('mode',inferMode(name));refresh();cm.refresh();cm.focus()}
+function remove(name){if(Object.keys(project).length<=1){alert('Keep at least one file.');return}if(!confirm('Delete '+name+'?'))return;save();delete project[name];current=Object.keys(project)[0];cm.setValue(project[current]||'');cm.setOption('mode',inferMode(current));refresh()}
+cm.on('change',save);refresh();cm.setValue(project[current]||'');cm.setOption('mode',inferMode(current));
+document.getElementById('rtIDEOpen').onclick=()=>{panel.classList.add('open');cm.refresh();status.textContent='Project workspace opened'};
+document.getElementById('rtClose').onclick=()=>panel.classList.remove('open');
+document.getElementById('rtNewFile').onclick=add;document.getElementById('rtAdd').onclick=add;
+document.getElementById('rtZip').onclick=async()=>{save();if(!window.JSZip){alert('ZIP library unavailable');return}const zip=new JSZip();Object.entries(project).forEach(([name,content])=>zip.file(name,content));zip.file('README.txt','Runtide project files export.');const blob=await zip.generateAsync({type:'blob'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='runtide-'+page.replace('.html','')+'-project.zip';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);status.textContent='Project ZIP downloaded'};
+document.getElementById('rtRun').onclick=()=>{save();status.textContent='Saved project files. Run code using the page’s main tool.';if(page==='pythonplayground.html'||page==='console.html'){const primary=project['main.py']||project['main.js']||project[Object.keys(project)[0]];const native=page==='pythonplayground.html'?document.getElementById('runBtn'):document.getElementById('runEditorBtn');if(native&&primary){if(page==='pythonplayground.html'&&document.getElementById('code')){document.getElementById('code').value=primary;document.getElementById('code').dispatchEvent(new Event('input'));}else if(page==='console.html'&&document.getElementById('codeEditor')){document.getElementById('codeEditor').value=primary;native.click()}}}};
+document.getElementById('rtProjectIDE').querySelector('#rtProjectTop strong').onclick=()=>{if(localStorage.getItem('runtide_theme')==='light')panel.classList.add('light');else panel.classList.remove('light')};
 })();
 </script></body>
                 </html>
